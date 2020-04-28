@@ -24,13 +24,13 @@ class SkinType(models.Model):
     name = models.CharField(max_length = 50)
 
     class Meta:
-        db_table = 'userskintypes'
+        db_table = 'skintypes'
 
 class SkinTone(models.Model):
     name = models.CharField(max_length = 50)
 
     class Meta:
-        db_table = 'userskintone'
+        db_table = 'skintones'
 
 class SkinProblem(models.Model):
     name = models.CharField(max_length = 50)
@@ -43,7 +43,7 @@ class UserSkinProblem(models.Model):
     skinproblem = models.ForeignKey('SkinProblem', on_delete = models.SET_NULL, null = True)
 
     class Meta:
-        db_table = 'userskinproblems'
+        db_table = 'user_skinproblems'
 
 class FollowerUser(models.Model):
     user         = models.ForeignKey('User', on_delete = models.SET_NULL,null = True)
@@ -51,4 +51,4 @@ class FollowerUser(models.Model):
     published_at = models.DateTimeField(auto_now_add = True)
 
     class Meta:
-        db_table = 'followerusers'
+        db_table = 'follower_users'

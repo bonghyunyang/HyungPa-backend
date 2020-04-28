@@ -22,7 +22,7 @@ class ReviewComment(models.Model):
     comment_reply  = models.ManyToManyField('self', symmetrical = False, through = 'CommentReply')
 
     class Meta:
-        db_table = 'reviewcomments'
+        db_table = 'review_comments'
 
 class CommentReply(models.Model):
     comment         = models.CharField(max_length = 200)
@@ -31,4 +31,4 @@ class CommentReply(models.Model):
     reply           = models.ForeignKey('ReviewComment', related_name='reply', on_delete=models.SET_NULL, null=True)
 
     class Meta:
-        db_table = 'commentreplies'
+        db_table = 'comment_replies'
