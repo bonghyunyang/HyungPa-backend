@@ -17,16 +17,7 @@ class PostComment(models.Model):
     created_at         = models.DateTimeField(auto_now_add = True)
     user               = models.ForeignKey(User, on_delete = models.SET_NULL, null = True)
     review             = models.ForeignKey('Post', on_delete = models.SET_NULL, null = True)
-    post_comment_reply = models.ManyToManyField('self', symmetrical = False, through = 'PostCommentReply')
+    original_comment  = models.ForeignKey('PostComment', on_delete = models.SET_NULL, null = True)
 
     class Meta:
         db_table = 'post_comments'
-
-class PostCommentReply(models.Model):
-    comment         = models.CharField(max_length = 200)
-    created_at      = models.DateTimeField(auto_now_add = True)
-    user            = models.ForeignKey(User, on_delete = models.SET_NULL, null=True)
-    reply           = models.ForeignKey('PostComment', related_name = 'reply', on_delete = models.SET_NULL, null=True)
-
-    class Meta:
-        db_table = 'post_comment_replies'

@@ -15,20 +15,11 @@ class Review(models.Model):
         db_table = 'reviews'
 
 class ReviewComment(models.Model):
-    comment        = models.CharField(max_length = 200)
-    created_at     = models.DateTimeField(auto_now_add = True)
-    user           = models.ForeignKey(User, on_delete = models.SET_NULL, null = True)
-    review         = models.ForeignKey('Review', on_delete = models.SET_NULL, null = True)
-    comment_reply  = models.ManyToManyField('self', symmetrical = False, through = 'CommentReply')
+    comment           = models.CharField(max_length = 200)
+    created_at        = models.DateTimeField(auto_now_add = True)
+    user              = models.ForeignKey(User, on_delete = models.SET_NULL, null = True)
+    review            = models.ForeignKey('Review', on_delete = models.SET_NULL, null = True)
+    original_comment  = models.ForeignKey('ReviewComment', on_delete = models.SET_NULL, null = True)
 
     class Meta:
         db_table = 'review_comments'
-
-class CommentReply(models.Model):
-    comment         = models.CharField(max_length = 200)
-    created_at      = models.DateTimeField(auto_now_add = True)
-    user            = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    reply           = models.ForeignKey('ReviewComment', related_name='reply', on_delete=models.SET_NULL, null=True)
-
-    class Meta:
-        db_table = 'comment_replies'
