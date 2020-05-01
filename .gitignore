@@ -261,7 +261,7 @@ fabric.properties
 
 # Rope project settings
 
-# Mr Developer
+# Mr Developer:
 
 # mkdocs documentation
 
@@ -272,3 +272,6 @@ fabric.properties
 # End of https://www.gitignore.io/api/linux,django,python,pycharm
 
 Type ! to start highlighting.
+
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*

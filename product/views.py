@@ -1,34 +1,38 @@
-from product.models import *
-from django.db.models import Sum
+from product.models   import *
+from post.models      import *
+from django.db.models import Avg
 import random
 
-from django.views   import View
-from django.http    import JsonResponse
+from django.views     import View
+from django.http      import JsonResponse
 
 class RankingView(View):
     def get(self, request):
-        category         = random.randrange(1,102)
-        product_category = SecondCategory.objects.prefetch_related('product_set').get(id = category)
-        products         = product_category.product_set.all().order_by('-like_nums')
+        items      = request.GET.get('item', None)
+        category   = random.randrange(1, SecondCategory.objects.count())
+        products   = Product.objects.filter(secondcategory_id = category).order_by('-like_nums')
 
         product_ranking      = [
             {'id'           : product.id,
+             'category'     : product.secondcategory.name,
              'brand'        : product.brand_name,
              'productName'  : product.name,
              'productImage' : product.product_image,
-             'rate'         : [UserScore.objects.filter(product_id = product.id).aggregate(Sum('score'))['score__sum']/len(UserScore.objects.filter(product_id = product.id)),
+             'rate'         : [UserScore.objects.filter(product_id = product.id).aggregate(Avg('score'))['score__avg'],
                                len(UserScore.objects.filter(product_id = product.id))]
-             } for product in products[:4]]
+             } for product in products[:items]]
 
-        brands      = Product.objects.filter(brand_name = "이니스프리").order_by('-like_nums')
+        brand_rand   = random.randrange(1, Product.objects.count())
+        brand_get    = Product.objects.get(id = brand_rand)
+        brands       = Product.objects.filter(brand_name = brand_get.brand_name).order_by('-like_nums')
         brand_ranking = [
             {'id'           : brand.id,
              'brand'        : brand.brand_name,
              'productName'  : brand.name,
              'productImage' : brand.product_image,
-             'rate'         : [UserScore.objects.filter(product_id = brand.id).aggregate(Sum('score'))['score__sum'],
+             'rate'         : [UserScore.objects.filter(product_id = brand.id).aggregate(Avg('score'))['score__avg'],
                                len(UserScore.objects.filter(product_id = brand.id))]
-        } for brand in brands[:4]]
+        } for brand in brands[:items]]
 
         new_picks   = Product.objects.order_by('?')[:7]
         new_pick = [
@@ -43,15 +47,21 @@ class RankingView(View):
 class ProductView(View):
     def get(self, request):
         firstcategory   = request.GET.get('category', None)
-        products             = Product.objects.filter(firstcategory_id = firstcategory).order_by('-like_nums')
+        offset          = int(request.GET.get('offset'))
+        limit           = int(request.GET.get('limit'))
+
+        category_dict   = {}
+        if firstcategory:
+            category_dict['firstcategory'] = firstcategory
+        products = Product.objects.filter(**category_dict).order_by('-like_nums')
         product_ranking      = [
             {'id'           : product.id,
              'brand'        : product.brand_name,
              'productName'  : product.name,
              'productImage' : product.product_image,
-             'rate'         : [UserScore.objects.filter(product_id = product.id).aggregate(Sum('score'))['score__sum']/len(UserScore.objects.filter(product_id = product.id)),
+             'rate'         : [UserScore.objects.filter(product_id = product.id).aggregate(Avg('score'))['score__avg'],
                                len(UserScore.objects.filter(product_id = product.id))]
-             } for product in products]
+             } for product in products[offset : offset + limit]]
 
         return JsonResponse({'products': product_ranking}, status = 200)
 
@@ -81,4 +91,14 @@ class ProductDetailView(View):
              'rateData'         : list(score_dict.values())
              }]
 
-        return JsonResponse({'product_data': product_details}, status = 200)
+#product/1/power_reivew
+        power_reviews = Post.objects.order_by('?')[:7]
+        review = [
+            {'id'           : power_review.id,
+             'title'        : power_review.title,
+             'image'        : product.product_image,
+             'likes'        : power_review.like_number,
+             'views'        : power_review.view_number
+             } for power_review in power_reviews]
+
+        return JsonResponse({'product_data': product_details, 'review_data' : review}, status = 200)
