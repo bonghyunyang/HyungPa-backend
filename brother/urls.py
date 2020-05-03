@@ -1,5 +1,7 @@
 from django.urls import path,include
 
 urlpatterns = [
-    # path('review', include('review.urls'))
+    path('reviewdetail', include('review.urls')),
+    path('reviewdetail', include('user.urls')),
+    path('reviewdetail', include('product.urls'))
 ]

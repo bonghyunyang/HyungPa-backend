@@ -3,19 +3,19 @@ from django.db import models
 class User(models.Model):
     email              = models.CharField(max_length = 50)
     password           = models.CharField(max_length = 200)
-    birth_date         = models.DateField()
-    phone_number       = models.CharField(max_length = 20)
+    birth_date         = models.DateField(null=True)
+    phone_number       = models.CharField(max_length = 20,null=True)
     created_at         = models.DateTimeField(auto_now_add = True)
     updated_at         = models.DateTimeField(auto_now_add = True)
-    nickname           = models.CharField(max_length = 50)
+    nickname           = models.CharField(max_length = 50 ,null=True)
     self_introduction  = models.CharField(max_length = 200)
     profile_image      = models.URLField(max_length = 2000)
-    activity_index     = models.IntegerField()
-    selected_agreement = models.BooleanField(default = 1)
+    activity_index     = models.IntegerField(null=True)
+    selected_agreement = models.BooleanField(default = 1,null=True)
     skintype           = models.OneToOneField('SkinType', on_delete = models.SET_NULL, null = True)
     skintone           = models.OneToOneField('SkinTone', on_delete = models.SET_NULL, null = True)
-    user_skinproblem   = models.ManyToManyField('SkinProblem', through = 'UserSkinProblem')
-    follower_username  = models.ManyToManyField('self', symmetrical = False, through = 'FollowerUser')
+    user_skinproblem   = models.ManyToManyField('SkinProblem', through = 'UserSkinProblem',null=True)
+    follower_username  = models.ManyToManyField('self', symmetrical = False, through = 'FollowerUser',null=True)
 
     class Meta:
         db_table = 'users'
