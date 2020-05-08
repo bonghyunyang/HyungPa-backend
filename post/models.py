@@ -9,6 +9,8 @@ class Post(models.Model):
     updated_at   = models.DateTimeField(auto_now = True)
     view_number  = models.IntegerField()
     user         = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
+    first_image  = models.CharField(max_length = 2000)
+    first_text   = models.CharField(max_length = 2000)
 
     class Meta:
         db_table = 'posts'
