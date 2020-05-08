@@ -1,5 +1,5 @@
 ## Introduction
-Kakao Friends Shop clone (https://www.kakaofriends.com)<br>
+ clone ()<br>
 Developed by a team of 6 developers (3 Front-End, 3 Back-End)<br>
 [Front-End Github Repository](https://github.com/wecode-bootcamp-korea/HyungPa-frontend)
 
