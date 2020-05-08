@@ -10,10 +10,10 @@ class User(models.Model):
     nickname           = models.CharField(max_length = 50)
     self_introduction  = models.CharField(max_length = 200)
     profile_image      = models.URLField(max_length = 2000)
-    activity_index     = models.IntegerField()
+    activity_index     = models.IntegerField(default = 0)
     selected_agreement = models.BooleanField(default = 1)
-    skintype           = models.OneToOneField('SkinType', on_delete = models.SET_NULL, null = True)
-    skintone           = models.OneToOneField('SkinTone', on_delete = models.SET_NULL, null = True)
+    skintype           = models.ForeignKey('SkinType', on_delete = models.SET_NULL, null = True)
+    skintone           = models.ForeignKey('SkinTone', on_delete = models.SET_NULL, null = True)
     user_skinproblem   = models.ManyToManyField('SkinProblem', through = 'UserSkinProblem')
     follower_username  = models.ManyToManyField('self', symmetrical = False, through = 'FollowerUser')
 
@@ -47,7 +47,7 @@ class UserSkinProblem(models.Model):
 
 class FollowerUser(models.Model):
     user         = models.ForeignKey('User', on_delete = models.SET_NULL,null = True)
-    follower    = models.ForeignKey('User', related_name = 'follower', on_delete = models.SET_NULL, null = True)
+    follower     = models.ForeignKey('User', related_name = 'follower', on_delete = models.SET_NULL, null = True)
     published_at = models.DateTimeField(auto_now_add = True)
 
     class Meta:
