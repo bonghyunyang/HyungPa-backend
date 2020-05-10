@@ -108,3 +108,16 @@ class ProductDetailView(View):
              } for power_review in power_reviews]
 
         return JsonResponse({'product_data': product_details, 'review_data' : review}, status = 200)
+
+
+class ReviewProductView(View):
+    def get(self, request, product_id):
+        if Product.objects.filter(id=product_id).exists():
+            product = Product.objects.get(id=product_id)
+            product_elements = {
+                'image': product.product_image,
+                'name': product.name,
+                'brand': product.brand_name,
+            }
+            return JsonResponse({'product_elements': product_elements}, status=200)
+        return JsonResponse({'message': 'Product_does_not_exist'}, status=404)
