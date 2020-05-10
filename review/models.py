@@ -8,8 +8,8 @@ class Review(models.Model):
     published_at  = models.DateTimeField(auto_now_add = True)
     updated_at    = models.DateTimeField(auto_now = True)
     view_number   = models.IntegerField()
-    review_image   = models.CharField(max_length = 3000)
-    review_comment = models.CharField(max_length = 3000)
+    first_image   = models.CharField(max_length = 3000)
+    first_comment = models.CharField(max_length = 3000)
     user          = models.ForeignKey(User, on_delete=models.SET_NULL, null = True)
     product       = models.ForeignKey(Product, on_delete=models.SET_NULL, null = True)
 
