@@ -26,7 +26,7 @@
 - 랭킹 페이지 Query String 구현
 
 ## API Documentation
-Endpoint APIs are defined <a href="" target="_blank">here.</a>
+Endpoint APIs are defined [Here](https://documenter.getpostman.com/view/10870722/Szt8dpqB?version=latest#intro)
 
 ## DataBase Modeling
 AQUERY Tool [URL](https://aquerytool.com:443/aquerymain/index/?rurl=e9092e86-8a3d-4550-b702-42e08f259f18)
