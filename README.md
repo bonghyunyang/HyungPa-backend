@@ -7,6 +7,7 @@
 
 개발 기간 : `20. 4. 20(월) ~ 5. 1(금) 
 ## Demo(Click the image)
+![Youtube](https://youtu.be/lJ7GSCtig0w)
 
 ## Skills
 - Python, Django Web Framework, MySQL
@@ -22,7 +23,7 @@
 - 리뷰, 포스트, 랭킹 페이지 GET API
 - 리뷰, 포스트, 랭킹 페이지 Pagenation
 - 리뷰, 포스트 댓글 작성 구현
-- 랭킹 페이지 Query String 구
+- 랭킹 페이지 Query String 구현
 
 ## API Documentation
 Endpoint APIs are defined <a href="" target="_blank">here.</a>
