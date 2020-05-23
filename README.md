@@ -7,7 +7,7 @@
 
 개발 기간 : `20. 4. 20(월) ~ 5. 1(금) 
 ## Demo(Click the image)
-![URL](https://youtu.be/lJ7GSCtig0w)
+[![URL](https://user-images.githubusercontent.com/60928021/82725804-8ab43d80-9d1a-11ea-8449-eb7de37073b2.png)](https://youtu.be/lJ7GSCtig0w)
 
 ## Skills
 - Python, Django Web Framework, MySQL
