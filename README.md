@@ -7,7 +7,7 @@
 
 개발 기간 : `20. 4. 20(월) ~ 5. 1(금) 
 ## Demo(Click the image)
-![Youtube](https://youtu.be/lJ7GSCtig0w)
+![URL](https://youtu.be/lJ7GSCtig0w)
 
 ## Skills
 - Python, Django Web Framework, MySQL
